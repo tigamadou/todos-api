@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Todos", type: :request do
   # inital data
   let!(:todos) { create_list(:todo, 10) }
-  let(:todo_id) { todos.first_id}
+  let(:todo_id) { todos.first.id}
 
   describe "GET /todos" do
     before { get '/todos' }
@@ -49,7 +49,7 @@ RSpec.describe "Todos", type: :request do
   end
 
   describe 'Post /todos' do 
-    let(:valid_attributes) {{title: 'learn Elm', created_by: '1'}}
+    let(:valid_attributes) {{title: 'Learn Elm', created_by: '1'}}
 
     context 'when the request is valid' do
       before { post '/todos', params: valid_attributes }
@@ -71,7 +71,7 @@ RSpec.describe "Todos", type: :request do
       end
 
       it 'returns validation failure message' do
-        expect(response.body).to match(/Validation failed:created by can't be blank/)
+        expect(response.body).to match(/Validation failed: Created by can't be blank/)
       end
 
     end
